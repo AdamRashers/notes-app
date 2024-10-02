@@ -1,5 +1,8 @@
 package ie.setu
 import java.lang.System.exit
+import utils.readIntNotNull
+private val logger = KotlinLogging.logger {}
+import io.github.oshai.kotlinlogging.KotlinLogging
 
 
 
@@ -15,9 +18,9 @@ fun mainMenu(): Int {
          > |   4) Delete a note             |
          > ----------------------------------
          > |   0) Exit                      |
-         > ----------------------------------
-         > ==>> """.trimMargin(">"))
-    return readlnOrNull()?.toIntOrNull() ?: -1
+         > ---------------------------------- 
+         >""".trimMargin(">"))
+    return readNextInt(" > ==>>")
 }
 
 fun runMenu() {
@@ -38,8 +41,9 @@ fun runMenu() {
 }
 
 
-fun addNote(){
-    println("You chose Add Note")
+fun addNote() {
+    logger.info { "addNote() function invoked" }
+    readNextDouble("Enter a double: ")
 }
 
 fun listNotes(){
@@ -63,4 +67,32 @@ fun exitApp(){
 
 fun main() {
     runMenu()
+}
+
+fun readNextInt(prompt: String?): Int {
+    do {
+        try {
+            print(prompt)
+            return readln().toInt()
+        } catch (e: NumberFormatException) {
+            System.err.println("\tEnter a number please.")
+        }
+    } while (true)
+}
+
+fun readNextLine(prompt: String?): String {
+    print(prompt)
+    return readln()
+}
+
+
+fun readNextChar(prompt: String?): Char {
+    do {
+        try {
+            print(prompt)
+            return readln().first()
+        } catch (e: NumberFormatException) {
+            System.err.println("\tEnter a character please.")
+        }
+    } while (true)
 }
